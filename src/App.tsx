@@ -3,6 +3,18 @@ import githubImg from "./assets/github.svg"
 import linkedinImg from "./assets/linkedin.svg"
 import logo from "./assets/logo.webp"
 import { Section } from "./components/section/section"
+import Console from "./components/console/Console"
+
+const Profile = () => {
+  return (
+    <Console>
+      <Console.Line>
+        <Console.Line.Text text="Loading..." />
+        <Console.Line.Cursor />
+      </Console.Line>
+    </Console> 
+  )
+}
 
 const App = () => {
   return (
@@ -13,15 +25,15 @@ const App = () => {
             <Nav>
               <Nav.Group>
                 <Nav.Logo href="/">
-                  <img src={logo} className="max-h-8 min-h-8 min-w-8 max-w-8"/>
+                  <img src={logo} className="max-h-16 min-h-8 min-w-8 max-w-8" />
                 </Nav.Logo>
               </Nav.Group>
               <Nav.Group>
                 <Nav.Logo href="https://github.com/rickpowell1311" external={true}>
-                  <img src={githubImg} className="max-h-8 min-h-8 min-w-8 max-w-8 invert"/>
+                  <img src={githubImg} className="max-h-8 min-h-8 min-w-8 max-w-8 invert" />
                 </Nav.Logo>
                 <Nav.Logo href="https://www.linkedin.com/in/rick-powell-8831712b/" external={true}>
-                  <img src={linkedinImg} className="max-h-8 min-h-8 min-w-8 max-w-8"/>
+                  <img src={linkedinImg} className="max-h-8 min-h-8 min-w-8 max-w-8" />
                 </Nav.Logo>
               </Nav.Group>
             </Nav>
@@ -31,9 +43,7 @@ const App = () => {
       <main className="w-screen">
         <div className="container mx-auto">
           <Section>
-            <h1 className="text-3xl font-bold underline">
-              Hello world!
-            </h1>
+            <Profile />
           </Section>
         </div>
       </main>
