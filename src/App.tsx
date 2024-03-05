@@ -105,7 +105,7 @@ const App = () => {
           <Section>
             <Nav>
               <Nav.Group>
-                <Nav.Logo href="/">
+                <Nav.Logo href="/website/">
                   <img src={logo} className="max-h-16 min-h-8 min-w-8 max-w-8" />
                 </Nav.Logo>
               </Nav.Group>
