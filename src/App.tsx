@@ -69,12 +69,12 @@ const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (_
           <p>Profile</p>
         </Launcher.Tile.Label>
       </Launcher.Tile>
-      <Launcher.Tile onClick={() => onProgramSelected('technologies')}>
+      <Launcher.Tile onClick={() => onProgramSelected('skills')}>
         <Launcher.Tile.Icon>
-          <img src={CommandLineIcon} alt="Technologies" />
+          <img src={CommandLineIcon} alt="Skills" />
         </Launcher.Tile.Icon>
         <Launcher.Tile.Label>
-          <p>Technologies</p>
+          <p>Skills</p>
         </Launcher.Tile.Label>
       </Launcher.Tile>
       <Launcher.Tile onClick={() => onProgramSelected('cv')}>
@@ -87,11 +87,8 @@ const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (_
       </Launcher.Tile>
       <Launcher.Tile onClick={() => onProgramSelected('extra')}>
         <Launcher.Tile.Icon>
-          <img src={QuestionMarkCircleIcon} alt="Extra" />
+          <img src={QuestionMarkCircleIcon} alt="?" />
         </Launcher.Tile.Icon>
-        <Launcher.Tile.Label>
-          <p>Bonus</p>
-        </Launcher.Tile.Label>
       </Launcher.Tile>
     </Launcher>
   )
@@ -137,7 +134,10 @@ const App = () => {
               <div className="flex-grow">
                 {
                   program === 'profile' && <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} onClose={() => setProgram(undefined)} />
-                }              
+                }
+                {
+                  program === 'skills' && <Program name="skills" output={['Languages: C#, Javascript, TypeScript, Python, Node, F#, SQL', 'Cloud: Azure, Google Cloud Platform', 'Frontend frameworks: React, Angular', 'Backend frameworks: .NET, Node', 'Databases: SQL Server, PostgreSql, Cosmos', 'DevOps: Docker, Terraform, Pulumi, Kubernetes']} onClose={() => setProgram(undefined)} />
+                }                  
               </div>
             </div>
           </Section>
