@@ -5,7 +5,7 @@ export type Typewriter = {
     finished: boolean;
 }
 
-export const useTypewriter = ({ start = true, phrases = [] as string[] }) => {
+export const useTypewriter = ({ start = true, delay=500, phrases = [] as string[] }) => {
 
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
     const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -29,7 +29,7 @@ export const useTypewriter = ({ start = true, phrases = [] as string[] }) => {
                 const timeout = setTimeout(() => {
                     setCurrentCharacterIndex(0);
                     setCurrentPhraseIndex(prevIndex => prevIndex + 1);
-                }, 500);
+                }, delay);
 
                 return () => clearTimeout(timeout);
             }

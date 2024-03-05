@@ -8,11 +8,11 @@ import { useTypewriter } from "./hooks/typewriter"
 
 const Program = ({ name = 'program', output = ['Finished program!'] as string[]}) => {
 
-  const loading = useTypewriter({ phrases: [`Loading ${name}...`, 'Done!']})
+  const loading = useTypewriter({ delay: 2000, phrases: [`Loading ${name}...`]})
   const profile = useTypewriter({ start: loading.finished, phrases: output})
 
   return (
-    <div className="flex flex-col md:flex-row gap-4">
+    <div className={`flex flex-col md:flex-row gap-4 ${!loading.finished ? 'animate-pulse' : ''}`}>
       <Console>
           {
             loading.typed.map((text, index) => {
