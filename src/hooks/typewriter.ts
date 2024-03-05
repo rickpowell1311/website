@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export type Typewriter = {
     typed: string[];
     finished: boolean;
+    rush: () => {};
 }
 
 export const useTypewriter = ({ start = true, delay=500, phrases = [] as string[]}) => {
@@ -10,6 +11,15 @@ export const useTypewriter = ({ start = true, delay=500, phrases = [] as string[
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
     const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
     const [finished, setFinished] = useState(false);
+
+    const rush = () => {
+        const phraseIndex = phrases?.length ?? 0;
+        const characterIndex = phrases ? phrases[phraseIndex - 1].length : 0;
+
+        setCurrentPhraseIndex(phraseIndex)
+        setCurrentCharacterIndex(characterIndex)
+        setFinished(true)
+    }
 
     useEffect(() => {
         if (!start) {
@@ -50,6 +60,7 @@ export const useTypewriter = ({ start = true, delay=500, phrases = [] as string[
     
     return {
         typed,
-        finished
+        finished,
+        rush
     } as Typewriter;
 }

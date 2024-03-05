@@ -12,45 +12,64 @@ import QuestionMarkCircleIcon from "./assets/question-mark-circle.svg"
 import { useState } from "react"
 import Console from "./components/console/console"
 
-const Program = ({ name = 'program', onClose = () => {}, output = ['Finished program!'] as string[]}) => {
+const Program = ({ name = 'program', onClose = () => { }, output = ['Finished program!'] as string[] }) => {
 
-  const loading = useTypewriter({ delay: 1000, phrases: [`Loading ${name}...`, 'Done!']})
-  const profile = useTypewriter({ start: loading.finished, phrases: output})
+  const loading = useTypewriter({ delay: 1000, phrases: [`Loading ${name}...`, 'Done!'] })
+  const main = useTypewriter({ start: loading.finished, phrases: output })
+
+  const onClick = () => {
+    if (loading.finished && main.finished) {
+      onClose?.()
+      return;
+    }
+
+    loading.rush()
+    main.rush()
+  }
 
   return (
     <div className={`flex flex-col md:flex-row gap-4 animate-pop`}>
-      <Console onClose={onClose}>
-          {
-            loading.typed.map((text, index) => {
-              return (
-                <Console.Line key={text}>
-                  <Console.Line.Text text={text} />
-                  { (index === loading.typed.length - 1 && !loading.finished) && <Console.Line.Cursor /> }
-                </Console.Line>
-              )
-            })
-          }
-          {
-            loading.finished &&
-            <>
-              <Console.Line includeInputDelimiter={false}></Console.Line>
-              {
-                profile.typed.map(text => {
-                  return (
-                    <Console.Line key={text} includeInputDelimiter={false}>
-                      <Console.Line.Text text={text} />
-                    </Console.Line>
-                  )
-                })
-              }
-            </>
-          }
+      <Console onClick={onClick} onClose={onClose}>
+        {
+          loading.typed.map((text, index) => {
+            return (
+              <Console.Line key={text}>
+                <Console.Line.Text text={text} />
+                {(index === loading.typed.length - 1 && !loading.finished) && <Console.Line.Cursor />}
+              </Console.Line>
+            )
+          })
+        }
+        {
+          loading.finished &&
+          <>
+            <Console.Line includeInputDelimiter={false}></Console.Line>
+            {
+              main.typed.map(text => {
+                return (
+                  <Console.Line key={text} includeInputDelimiter={false}>
+                    <Console.Line.Text text={text} />
+                  </Console.Line>
+                )
+              })
+            }
+          </>
+        }
+        {
+          main.finished &&
+          <>
+            <Console.Line includeInputDelimiter={false} />
+            <Console.Line includeInputDelimiter={false}>
+              <Console.Line.Text type="info" text="Finished! Click or tap on this window to exit" />
+            </Console.Line>
+          </>
+        }
       </Console>
     </div>
   )
 }
 
-const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (_: string) => {}, className = "" }) => {
+const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (_: string) => { }, className = "" }) => {
 
   const [_, setProgram] = useState<string | undefined>()
 
@@ -137,7 +156,7 @@ const App = () => {
                 }
                 {
                   program === 'skills' && <Program name="skills" output={['Languages: C#, Javascript, TypeScript, Python, Node, F#, SQL', 'Cloud: Azure, Google Cloud Platform', 'Frontend frameworks: React, Angular', 'Backend frameworks: .NET, Node', 'Databases: SQL Server, PostgreSql, Cosmos', 'DevOps: Docker, Terraform, Pulumi, Kubernetes']} onClose={() => setProgram(undefined)} />
-                }                  
+                }
               </div>
             </div>
           </Section>

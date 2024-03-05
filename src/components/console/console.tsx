@@ -11,19 +11,25 @@ const Line = ({ includeInputDelimiter = true, children = undefined as any }) => 
     )
 }
 
-const Text = ({ text = ''}) => {
-    return (
-        <p>{ text }</p>
-    )
+const Text = ({ text = '', type = "default" as "default" | "info" | "success"}) => {
+
+    switch (type) {
+        case "info":
+            return <p className="text-blue-300">{text}</p>
+        case "success":
+            return <p className="text-green-700">{text}</p>
+        default:
+            return <p>{text}</p>
+    }
 }
 
 const Cursor = () => {
     return <span className="animate-blink">|</span>
 }
 
-const Console = ({ children = undefined as any, onClose = () => {}}) => {
+const Console = ({ children = undefined as any, onClick = () => {}, onClose = () => {}}) => {
     return (
-        <div className="w-full min-h-40 font-mono bg-black border-solid border-slate-500 border-2">
+        <div onClick={onClick} className="w-full min-h-40 font-mono bg-black border-solid border-slate-500 border-2">
             <div className="w-full bg-slate-500">
                 <div className="flex py-2 px-3 gap-4 flex-row-reverse cursor-pointer" onClick={onClose}>
                     <p className="text-3xl leading-none -mt-2">x</p>
