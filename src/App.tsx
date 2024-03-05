@@ -50,9 +50,9 @@ const Program = ({ name = 'program', onClose = () => {}, output = ['Finished pro
   )
 }
 
-const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (x: string) => {}, className = "" }) => {
+const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (_: string) => {}, className = "" }) => {
 
-  const [program, setProgram] = useState<string | undefined>()
+  const [_, setProgram] = useState<string | undefined>()
 
   const onProgramSelected = (val: string) => {
     onProgramLaunched(val)

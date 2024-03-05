@@ -21,7 +21,7 @@ const Label = ({children = undefined as any}) => {
     )
 }
 
-const Tile = ({size = "grid" as "grid" | "nav", children = undefined as any, className="", onClick = () => {}}) => {
+const Tile = ({ children = undefined as any, className="", onClick = () => {}}) => {
 
     const context = useContext(LauncherContext);
     const sizing = context.layout === "grid" ? "w-32 h-32" : "";
