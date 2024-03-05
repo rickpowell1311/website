@@ -188,7 +188,7 @@ const App = () => {
                   program === 'skills' && <Program name="skills" output={['Languages: C#, Javascript, TypeScript, Python, Node, F#, SQL', 'Cloud: Azure, Google Cloud Platform', 'Frontend frameworks: React, Angular', 'Backend frameworks: .NET, Node', 'Databases: SQL Server, PostgreSql, Cosmos', 'DevOps: Docker, Terraform, Pulumi, Kubernetes']} onClose={() => setProgram(undefined)} />
                 }
                 {
-                  program === 'cv' && <CvProgram />
+                  program === 'cv' && <CvProgram onClose={() => setProgram(undefined)}/>
                 }
                 {
                   program === 'about' && <Program name="about" output={['This website was made using React, TailwindCSS and Vite', 'If you notice any issues please email rickpowell1311@gmail.com or leave an issue on the linked github repository :)']} onClose={() => setProgram(undefined)} />
