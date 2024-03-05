@@ -12,14 +12,14 @@ import ArchiveBoxIcon from "./assets/archive-box.svg"
 import QuestionMarkCircleIcon from "./assets/question-mark-circle.svg"
 import { useState } from "react"
 
-const Program = ({ name = 'program', output = ['Finished program!'] as string[]}) => {
+const Program = ({ name = 'program', onClose = () => {}, output = ['Finished program!'] as string[]}) => {
 
   const loading = useTypewriter({ delay: 1000, phrases: [`Loading ${name}...`, 'Done!']})
   const profile = useTypewriter({ start: loading.finished, phrases: output})
 
   return (
     <div className={`flex flex-col md:flex-row gap-4 animate-pop`}>
-      <Console>
+      <Console onClose={onClose}>
           {
             loading.typed.map((text, index) => {
               return (
@@ -47,6 +47,53 @@ const Program = ({ name = 'program', output = ['Finished program!'] as string[]}
           }
       </Console>
     </div>
+  )
+}
+
+const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (x: string) => {}, className = "" }) => {
+
+  const [program, setProgram] = useState<string | undefined>()
+
+  const onProgramSelected = (val: string) => {
+    onProgramLaunched(val)
+    setProgram(val)
+  }
+
+  return (
+    <Launcher layout={layout} className={className}>
+      <Launcher.Tile onClick={() => onProgramSelected('profile')}>
+        <Launcher.Tile.Icon>
+          <img src={UserIcon} alt="Profile" />
+        </Launcher.Tile.Icon>
+        <Launcher.Tile.Label>
+          <p>Profile</p>
+        </Launcher.Tile.Label>
+      </Launcher.Tile>
+      <Launcher.Tile onClick={() => onProgramSelected('technologies')}>
+        <Launcher.Tile.Icon>
+          <img src={CommandLineIcon} alt="Technologies" />
+        </Launcher.Tile.Icon>
+        <Launcher.Tile.Label>
+          <p>Technologies</p>
+        </Launcher.Tile.Label>
+      </Launcher.Tile>
+      <Launcher.Tile onClick={() => onProgramSelected('cv')}>
+        <Launcher.Tile.Icon>
+          <img src={ArchiveBoxIcon} alt="CV" />
+        </Launcher.Tile.Icon>
+        <Launcher.Tile.Label>
+          <p>CV</p>
+        </Launcher.Tile.Label>
+      </Launcher.Tile>
+      <Launcher.Tile onClick={() => onProgramSelected('extra')}>
+        <Launcher.Tile.Icon>
+          <img src={QuestionMarkCircleIcon} alt="Extra" />
+        </Launcher.Tile.Icon>
+        <Launcher.Tile.Label>
+          <p>Bonus</p>
+        </Launcher.Tile.Label>
+      </Launcher.Tile>
+    </Launcher>
   )
 }
 
@@ -80,45 +127,19 @@ const App = () => {
       <main className="w-screen">
         <div className="container mx-auto">
           <Section>
-            <Launcher className={`${program !== undefined ? 'hidden': ''}`}>
-              <Launcher.Tile onClick={() => setProgram('profile')}>
-                <Launcher.Tile.Icon>
-                  <img src={UserIcon} alt="Profile" />
-                </Launcher.Tile.Icon>
-                <Launcher.Tile.Label>
-                  <p>Profile</p>
-                </Launcher.Tile.Label>
-              </Launcher.Tile>
-              <Launcher.Tile onClick={() => setProgram('technologies')}>
-                <Launcher.Tile.Icon>
-                  <img src={CommandLineIcon} alt="Technologies" />
-                </Launcher.Tile.Icon>
-                <Launcher.Tile.Label>
-                  <p>Technologies</p>
-                </Launcher.Tile.Label>
-              </Launcher.Tile>
-              <Launcher.Tile onClick={() => setProgram('cv')}>
-                <Launcher.Tile.Icon>
-                  <img src={ArchiveBoxIcon} alt="CV" />
-                </Launcher.Tile.Icon>
-                <Launcher.Tile.Label>
-                  <p>CV</p>
-                </Launcher.Tile.Label>
-              </Launcher.Tile>
-              <Launcher.Tile onClick={() => setProgram('extra')}>
-                <Launcher.Tile.Icon>
-                  <img src={QuestionMarkCircleIcon} alt="Extra" />
-                </Launcher.Tile.Icon>
-                <Launcher.Tile.Label>
-                  <p>Bonus</p>
-                </Launcher.Tile.Label>
-              </Launcher.Tile>
-            </Launcher>
+            <AppLauncher layout="grid" className={`${program ? "hidden" : ""}`} onProgramLaunched={setProgram} />
           </Section>
           <Section>
-            {
-              program === 'profile' && <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} />
-            }
+            <div className="md:flex flex-row">
+              <div className="flex-shrink">
+                <AppLauncher layout="nav" className={`${program ? "" : "hidden"}`} onProgramLaunched={setProgram} />
+              </div>
+              <div className="flex-grow">
+                {
+                  program === 'profile' && <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} onClose={() => setProgram(undefined)} />
+                }              
+              </div>
+            </div>
           </Section>
         </div>
       </main>

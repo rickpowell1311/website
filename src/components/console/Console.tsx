@@ -21,12 +21,12 @@ const Cursor = () => {
     return <span className="animate-blink">|</span>
 }
 
-const Console = ({ children = undefined as any}) => {
+const Console = ({ children = undefined as any, onClose = () => {}}) => {
     return (
         <div className="w-full min-h-40 font-mono bg-black border-solid border-slate-500 border-2">
             <div className="w-full bg-slate-500">
-                <div className="flex px-4 gap-4 flex-row-reverse">
-                    <p className="text-5xl leading-none -mt-3">-</p>
+                <div className="flex py-2 px-3 gap-4 flex-row-reverse cursor-pointer" onClick={onClose}>
+                    <p className="text-3xl leading-none -mt-2">x</p>
                 </div>
             </div>
             <div className="p-4">

@@ -5,5 +5,6 @@
 body {
   background: linear-gradient(#011827 0%, #021626 50%, #011827 100%);
   min-height: 100vh;
+  min-width: 250px; /* Not supporting screen sizes smaller than this */
   color: white;
 }
