@@ -5,7 +5,7 @@ export type Typewriter = {
     finished: boolean;
 }
 
-export const useTypewriter = ({ start = true, delay=500, phrases = [] as string[] }) => {
+export const useTypewriter = ({ start = true, delay=500, phrases = [] as string[]}) => {
 
     const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
     const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);

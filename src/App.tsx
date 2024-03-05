@@ -3,7 +3,6 @@ import githubImg from "./assets/github.svg"
 import linkedinImg from "./assets/linkedin.svg"
 import logo from "./assets/logo.webp"
 import { Section } from "./components/section/section"
-import Console from "./components/console/Console"
 import { useTypewriter } from "./hooks/typewriter"
 import Launcher from "./components/launcher/launcher"
 import CommandLineIcon from "./assets/command-line.svg"
@@ -11,6 +10,7 @@ import UserIcon from "./assets/user.svg"
 import ArchiveBoxIcon from "./assets/archive-box.svg"
 import QuestionMarkCircleIcon from "./assets/question-mark-circle.svg"
 import { useState } from "react"
+import Console from "./components/console/console"
 
 const Program = ({ name = 'program', onClose = () => {}, output = ['Finished program!'] as string[]}) => {
 
