@@ -24,7 +24,7 @@ const Label = ({children = undefined as any}) => {
 const Tile = ({size = "grid" as "grid" | "nav", children = undefined as any, className="", onClick = () => {}}) => {
 
     const context = useContext(LauncherContext);
-    const sizing = context.layout === "grid" ? "w-32 h-32" : "w-12 h-12";
+    const sizing = context.layout === "grid" ? "w-32 h-32" : "";
 
     return (
         <div onClick={onClick} className={`${sizing} hover:scale-110 duration-300 cursor-pointer hover:shadow-lg ${className}`}>
@@ -69,7 +69,7 @@ const Launcher = ({ layout = "grid" as "grid" | "nav", children = undefined as u
 
     return (
         <LauncherContext.Provider value={{layout: layout}}>
-            <div className={`flex flex-row flex-wrap md:flex-col mb-12 md:mr-12 justify-center items-center font-mono gap-16 ${className}`}>
+            <div className={`flex flex-row flex-wrap md:flex-col mb-12 md:mr-16 justify-center items-center font-mono gap-16 ${className}`}>
                 {
                     items.map((x, i) => {
                         return <div key={i} className="flex justify-center animate-pop">
