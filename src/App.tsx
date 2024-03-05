@@ -5,6 +5,8 @@ import logo from "./assets/logo.webp"
 import { Section } from "./components/section/section"
 import Console from "./components/console/Console"
 import { useTypewriter } from "./hooks/typewriter"
+import Launcher from "./components/launcher/launcher"
+import CommandLineIcon from "./assets/command-line.svg"
 
 const Program = ({ name = 'program', output = ['Finished program!'] as string[]}) => {
 
@@ -70,6 +72,14 @@ const App = () => {
       </header>
       <main className="w-screen">
         <div className="container mx-auto">
+          <Section>
+            <Launcher>
+              <Launcher.Tile><img src={CommandLineIcon} className="invert-[.75] hover:invert duration-300" /></Launcher.Tile>
+              <Launcher.Tile></Launcher.Tile>
+              <Launcher.Tile></Launcher.Tile>
+              <Launcher.Tile></Launcher.Tile>
+            </Launcher>
+          </Section>
           <Section>
             <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} />
           </Section>
