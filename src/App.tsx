@@ -12,6 +12,7 @@ import QuestionMarkCircleIcon from "./assets/question-mark-circle.svg"
 import { useEffect, useState } from "react"
 import Console from "./components/console/console"
 import { Download } from "./components/download/download"
+import cv from "./assets/cv.pdf"
 
 const Program = ({ name = 'program', onClose = () => { }, onFinished = () => {}, output = ['Finished program!'] as string[] }) => {
 
@@ -133,10 +134,10 @@ const CvProgram = ({ onClose = () => {} }) => {
 
   return (
     <div className="flex-grow flex flex-col gap-8 items-center">
-      <Program name="cv" output={['Generating download link...']} onFinished={() => setShowCv(true)} onClose={onProgramClose} />
+      <Program name="CV" output={['Generating download link...']} onFinished={() => setShowCv(true)} onClose={onProgramClose} />
       {
         showCv &&
-        <Download url="/website/cv.pdf" fileName="Rick Powell - CV.pdf" description="Download CV" />
+        <Download url={cv} fileName="Rick Powell - CV.pdf" description="Download CV" />
       }
     </div> 
   )
