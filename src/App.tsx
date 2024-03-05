@@ -9,13 +9,20 @@ import CommandLineIcon from "./assets/command-line.svg"
 import UserIcon from "./assets/user.svg"
 import ArchiveBoxIcon from "./assets/archive-box.svg"
 import QuestionMarkCircleIcon from "./assets/question-mark-circle.svg"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Console from "./components/console/console"
+import { Download } from "./components/download/download"
 
-const Program = ({ name = 'program', onClose = () => { }, output = ['Finished program!'] as string[] }) => {
+const Program = ({ name = 'program', onClose = () => { }, onFinished = () => {}, output = ['Finished program!'] as string[] }) => {
 
   const loading = useTypewriter({ delay: 1000, phrases: [`Loading ${name}...`, 'Done!'] })
   const main = useTypewriter({ start: loading.finished, phrases: output })
+
+  useEffect(() => {
+    if (main.finished) {
+      onFinished()
+    }
+  }, [main.finished])
 
   const onClick = () => {
     if (loading.finished && main.finished) {
@@ -28,7 +35,7 @@ const Program = ({ name = 'program', onClose = () => { }, output = ['Finished pr
   }
 
   return (
-    <div className={`flex flex-col md:flex-row gap-4 animate-pop`}>
+    <div className={`w-full flex flex-col md:flex-row gap-4 animate-pop`}>
       <Console onClick={onClick} onClose={onClose}>
         {
           loading.typed.map((text, index) => {
@@ -104,12 +111,34 @@ const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (_
           <p>CV</p>
         </Launcher.Tile.Label>
       </Launcher.Tile>
-      <Launcher.Tile onClick={() => onProgramSelected('extra')}>
+      <Launcher.Tile onClick={() => onProgramSelected('about')}>
         <Launcher.Tile.Icon>
           <img src={QuestionMarkCircleIcon} alt="?" />
         </Launcher.Tile.Icon>
+        <Launcher.Tile.Label>
+          <p>About</p>
+        </Launcher.Tile.Label>
       </Launcher.Tile>
     </Launcher>
+  )
+}
+
+const CvProgram = ({ onClose = () => {} }) => {
+  const [showCv, setShowCv] = useState(false)
+
+  const onProgramClose = () => {
+    onClose?.()
+    setShowCv(false)
+  }
+
+  return (
+    <div className="flex-grow flex flex-col gap-8 items-center">
+      <Program name="cv" output={['Generating download link...']} onFinished={() => setShowCv(true)} onClose={onProgramClose} />
+      {
+        showCv &&
+        <Download url="/website/cv.pdf" fileName="Rick Powell - CV.pdf" description="Download CV" />
+      }
+    </div> 
   )
 }
 
@@ -156,6 +185,12 @@ const App = () => {
                 }
                 {
                   program === 'skills' && <Program name="skills" output={['Languages: C#, Javascript, TypeScript, Python, Node, F#, SQL', 'Cloud: Azure, Google Cloud Platform', 'Frontend frameworks: React, Angular', 'Backend frameworks: .NET, Node', 'Databases: SQL Server, PostgreSql, Cosmos', 'DevOps: Docker, Terraform, Pulumi, Kubernetes']} onClose={() => setProgram(undefined)} />
+                }
+                {
+                  program === 'cv' && <CvProgram />
+                }
+                {
+                  program === 'about' && <Program name="about" output={['This website was made using React, TailwindCSS and Vite', 'If you notice any issues please email rickpowell1311@gmail.com or leave an issue on the linked github repository :)']} onClose={() => setProgram(undefined)} />
                 }
               </div>
             </div>
