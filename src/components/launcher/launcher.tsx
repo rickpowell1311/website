@@ -1,14 +1,30 @@
-const Tile = ({children = undefined as any}) => {
+const Icon = ({children = undefined as any}) => {
     return (
-        <div className="border-slate-400 rounded-3xl w-32 h-32 hover:scale-110 duration-300 hover:border-2 hover:border-slate-200 hover:bg-slate-500 cursor-pointer hover:shadow-lg hover:drop">
-            <div className="flex justify-center items-center w-full h-full">
+        <div className="invert-[.6] hover:invert duration-300 w-32 h-32">
+            { children }
+        </div>
+    )
+}
+
+const Label = ({children = undefined as any}) => {
+    return (
+        <div>
+            {children}
+        </div>
+    )
+}
+
+const Tile = ({children = undefined as any, className="", onClick = () => {}}) => {
+    return (
+        <div onClick={onClick} className={`w-32 h-32 hover:scale-110 duration-300 cursor-pointer hover:shadow-lg ${className}`}>
+            <div className="flex flex-col justify-center items-center w-full h-full">
                 { children }
             </div>
         </div>
     )
 }
 
-const Launcher = ({ children = undefined as undefined | React.ReactElement | React.ReactElement[]}) => {
+const Launcher = ({ children = undefined as undefined | React.ReactElement | React.ReactElement[], className="" }) => {
 
     let items = new Array<React.ReactElement>();
 
@@ -23,18 +39,22 @@ const Launcher = ({ children = undefined as undefined | React.ReactElement | Rea
     }
 
     return (
-        <div className="w-full grid grid-cols-2 gap-8">
-            {
-                items.map((x, i) => {
-                    return <div key={i} className="flex justify-center">
-                        {x}
-                    </div>
-                })
-            }
+        <div className={`w-full flex justify-center items-center font-mono ${className}`}>
+            <div className="w-96 h-96 grid grid-cols-2 gap-8">
+                {
+                    items.map((x, i) => {
+                        return <div key={i} className="flex justify-center animate-pop">
+                            {x}
+                        </div>
+                    })
+                }
+            </div>
         </div>
     )
 }
 
+Tile.Icon = Icon;
+Tile.Label = Label;
 Launcher.Tile = Tile;
 
 export default Launcher;

@@ -7,14 +7,18 @@ import Console from "./components/console/Console"
 import { useTypewriter } from "./hooks/typewriter"
 import Launcher from "./components/launcher/launcher"
 import CommandLineIcon from "./assets/command-line.svg"
+import UserIcon from "./assets/user.svg"
+import ArchiveBoxIcon from "./assets/archive-box.svg"
+import QuestionMarkCircleIcon from "./assets/question-mark-circle.svg"
+import { useState } from "react"
 
 const Program = ({ name = 'program', output = ['Finished program!'] as string[]}) => {
 
-  const loading = useTypewriter({ delay: 2000, phrases: [`Loading ${name}...`]})
+  const loading = useTypewriter({ delay: 1000, phrases: [`Loading ${name}...`, 'Done!']})
   const profile = useTypewriter({ start: loading.finished, phrases: output})
 
   return (
-    <div className={`flex flex-col md:flex-row gap-4 ${!loading.finished ? 'animate-pulse' : ''}`}>
+    <div className={`flex flex-col md:flex-row gap-4 animate-pop`}>
       <Console>
           {
             loading.typed.map((text, index) => {
@@ -47,9 +51,12 @@ const Program = ({ name = 'program', output = ['Finished program!'] as string[]}
 }
 
 const App = () => {
+
+  const [program, setProgram] = useState<string | undefined>()
+
   return (
     <>
-      <header className="w-screen">
+      <header className="w-screen pb-8">
         <div className="container mx-auto">
           <Section>
             <Nav>
@@ -73,15 +80,45 @@ const App = () => {
       <main className="w-screen">
         <div className="container mx-auto">
           <Section>
-            <Launcher>
-              <Launcher.Tile><img src={CommandLineIcon} className="invert-[.75] hover:invert duration-300" /></Launcher.Tile>
-              <Launcher.Tile></Launcher.Tile>
-              <Launcher.Tile></Launcher.Tile>
-              <Launcher.Tile></Launcher.Tile>
+            <Launcher className={`${program !== undefined ? 'hidden': ''}`}>
+              <Launcher.Tile onClick={() => setProgram('profile')}>
+                <Launcher.Tile.Icon>
+                  <img src={UserIcon} alt="Profile" />
+                </Launcher.Tile.Icon>
+                <Launcher.Tile.Label>
+                  <p>Profile</p>
+                </Launcher.Tile.Label>
+              </Launcher.Tile>
+              <Launcher.Tile onClick={() => setProgram('technologies')}>
+                <Launcher.Tile.Icon>
+                  <img src={CommandLineIcon} alt="Technologies" />
+                </Launcher.Tile.Icon>
+                <Launcher.Tile.Label>
+                  <p>Technologies</p>
+                </Launcher.Tile.Label>
+              </Launcher.Tile>
+              <Launcher.Tile onClick={() => setProgram('cv')}>
+                <Launcher.Tile.Icon>
+                  <img src={ArchiveBoxIcon} alt="CV" />
+                </Launcher.Tile.Icon>
+                <Launcher.Tile.Label>
+                  <p>CV</p>
+                </Launcher.Tile.Label>
+              </Launcher.Tile>
+              <Launcher.Tile onClick={() => setProgram('extra')}>
+                <Launcher.Tile.Icon>
+                  <img src={QuestionMarkCircleIcon} alt="Extra" />
+                </Launcher.Tile.Icon>
+                <Launcher.Tile.Label>
+                  <p>Bonus</p>
+                </Launcher.Tile.Label>
+              </Launcher.Tile>
             </Launcher>
           </Section>
           <Section>
-            <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} />
+            {
+              program === 'profile' && <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} />
+            }
           </Section>
         </div>
       </main>
