@@ -6,10 +6,10 @@ import { Section } from "./components/section/section"
 import Console from "./components/console/Console"
 import { useTypewriter } from "./hooks/typewriter"
 
-const Profile = () => {
+const Program = ({ name = 'program', output = ['Finished program!'] as string[]}) => {
 
-  const loading = useTypewriter({ phrases: ['Loading profile...', 'Done!']})
-  const profile = useTypewriter({ start: loading.finished, phrases: ['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']})
+  const loading = useTypewriter({ phrases: [`Loading ${name}...`, 'Done!']})
+  const profile = useTypewriter({ start: loading.finished, phrases: output})
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
@@ -71,7 +71,7 @@ const App = () => {
       <main className="w-screen">
         <div className="container mx-auto">
           <Section>
-            <Profile />
+            <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} />
           </Section>
         </div>
       </main>
