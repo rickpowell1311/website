@@ -13,6 +13,7 @@ import { useEffect, useState } from "react"
 import Console from "./components/console/console"
 import { Download } from "./components/download/download"
 import cv from "./assets/cv.pdf"
+import circuitBoardImg from "./assets/circuit-board.webp";
 
 const Program = ({ name = 'program', onClose = () => { }, onFinished = () => {}, output = ['Finished program!'] as string[] }) => {
 
@@ -148,7 +149,10 @@ const App = () => {
   const [program, setProgram] = useState<string | undefined>()
 
   return (
-    <>
+    <div className="relative">
+      <div className="absolute top-0 left-0 w-dvw h-dvh -z-10 overflow-hidden">
+        <img src={circuitBoardImg} className="h-full w-full opacity-[0.05] object-cover scale-150" />
+      </div>
       <header className="w-screen pb-8">
         <div className="container mx-auto">
           <Section>
@@ -198,7 +202,7 @@ const App = () => {
           </Section>
         </div>
       </main>
-    </>
+    </div>
   )
 }
 
