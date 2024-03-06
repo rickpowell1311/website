@@ -180,26 +180,19 @@ const App = () => {
             <AppLauncher layout="grid" className={`${program ? "hidden" : ""}`} onProgramLaunched={setProgram} />
           </Section>
           <Section>
-            <div className="md:flex flex-row">
-              <div className="flex-shrink">
-                <AppLauncher layout="nav" className={`${program ? "" : "hidden"}`} onProgramLaunched={setProgram} />
-              </div>
-              <div className="flex-grow">
-                {
-                  program === 'profile' && <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} onClose={() => setProgram(undefined)} />
-                }
-                {
-                  program === 'skills' && <Program name="skills" output={['Languages: C#, Javascript, TypeScript, Python, Node, F#, SQL', 'Cloud: Azure, Google Cloud Platform', 'Frontend frameworks: React, Angular', 'Backend frameworks: .NET, Node', 'Databases: SQL Server, PostgreSql, Cosmos', 'DevOps: Docker, Terraform, Pulumi, Kubernetes']} onClose={() => setProgram(undefined)} />
-                }
-                {
-                  program === 'cv' && <CvProgram onClose={() => setProgram(undefined)}/>
-                }
-                {
-                  program === 'about' && <Program name="about" output={['This website was made using React, TailwindCSS and Vite', 'If you notice any issues please email rickpowell1311@gmail.com or leave an issue on the linked github repository :)']} onClose={() => setProgram(undefined)} />
-                }
-              </div>
-            </div>
-          </Section>
+              {
+                program === 'profile' && <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} onClose={() => setProgram(undefined)} />
+              }
+              {
+                program === 'skills' && <Program name="skills" output={['Languages: C#, Javascript, TypeScript, Python, Node, F#, SQL', 'Cloud: Azure, Google Cloud Platform', 'Frontend frameworks: React, Angular', 'Backend frameworks: .NET, Node', 'Databases: SQL Server, PostgreSql, Cosmos', 'DevOps: Docker, Terraform, Pulumi, Kubernetes']} onClose={() => setProgram(undefined)} />
+              }
+              {
+                program === 'cv' && <CvProgram onClose={() => setProgram(undefined)}/>
+              }
+              {
+                program === 'about' && <Program name="about" output={['This website was made using React, TailwindCSS and Vite', 'If you notice any issues please email rickpowell1311@gmail.com or leave an issue on the linked github repository :)']} onClose={() => setProgram(undefined)} />
+              }
+            </Section>
         </div>
       </main>
     </div>
