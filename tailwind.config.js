@@ -20,7 +20,7 @@ export default {
       },
       animation: {
         blink: 'blink 1s step-end infinite',
-        pop: 'pop 0.5s cubic-bezier(.26, .53, .74, 1.1)'
+        pop: 'pop 0.5s cubic-bezier(.26, .53, .74, 1.1)',
       }
     },
   },
