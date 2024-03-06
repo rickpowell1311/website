@@ -15,7 +15,7 @@ import { Download } from "./components/download/download"
 import cv from "./assets/cv.pdf"
 import circuitBoardImg from "./assets/circuit-board.webp";
 
-const Program = ({ name = 'program', onClose = () => { }, onFinished = () => {}, output = ['Finished program!'] as string[] }) => {
+const Program = ({ name = 'program', onClose = () => { }, onFinished = () => {}, output = ['Finished program!'] as string[], children = undefined as any }) => {
 
   const loading = useTypewriter({ delay: 1000, phrases: [`Loading ${name}...`, 'Done!'] })
   const main = useTypewriter({ start: loading.finished, phrases: output })
@@ -62,6 +62,7 @@ const Program = ({ name = 'program', onClose = () => { }, onFinished = () => {},
                 )
               })
             }
+            { children }
           </>
         }
         {
@@ -147,18 +148,31 @@ const CvProgram = ({ onClose = () => {} }) => {
 
   return (
     <div className="flex-grow flex flex-col gap-8 items-center">
-      <Program name="CV" output={['Generating download link...']} onFinished={() => setShowCv(true)} onClose={onProgramClose} />
+      <Program name="CV" output={['Generating download link...']} onFinished={() => setShowCv(true)} onClose={onProgramClose}>
       {
         showCv &&
-        <Download url={cv} fileName="Rick Powell - CV.pdf" description="Download CV" />
+        <>
+          <Console.Line includeInputDelimiter={false} />
+          <Console.Line includeInputDelimiter={false} />
+          <Console.Line includeInputDelimiter={false}>
+            <div className="flex">
+              <Download url={cv} fileName="Rick Powell - CV.pdf" description="Download CV" onClick={e => e.stopPropagation()} />
+            </div>
+          </Console.Line>
+          <Console.Line includeInputDelimiter={false} />
+        </>
       }
+      </Program>
     </div> 
   )
 }
 
 const AboutProgram = ({ onClose = () => {}}) => {
   return (
-    <Program name="about" output={['This website was made using React, TailwindCSS and Vite', 'If you notice any issues please email rickpowell1311@gmail.com or leave an issue on the linked github repository :)']} onClose={onClose} />
+    <Program name="about" output={[
+      'This website was made using React, TailwindCSS and Vite', 
+      'If you notice any issues please email rickpowell1311@gmail.com or leave an issue on the linked github repository :)'
+    ]} onClose={onClose} />
   )
 }
 
