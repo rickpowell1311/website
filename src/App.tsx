@@ -128,7 +128,19 @@ const AppLauncher = ({ layout = "grid" as "grid" | "nav", onProgramLaunched = (_
 
 const ProfileProgram = ({ onClose = () => {} }) => {
   return (
-    <Program name="profile" output={['Name: Rick Powell', 'Occupation: Software Engineer', 'Location: London, UK']} onClose={onClose} />
+    <Program name="profile" output={[
+      'Name: Rick Powell', 
+      'Occupation: Software Engineer', 
+      'Location: London, UK',
+      'Years Experience: 13',
+      '',
+      'My mantra...',
+      '1: Don\'t be afraid to ask for help',
+      '2: There are no silver bullets',
+      '3: Keep learning',
+      '4: It\'s okay to make mistakes',
+      '5: Take satisfaction in what you do'
+    ]} onClose={onClose} />
   )
 }
 
